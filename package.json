@@ -2,7 +2,8 @@
   "name": "age-guesser",
   "version": "1.0.0",
   "description": "Guesses your age based on your name",
-  "main": "index.js",
+  "type": "module",
+  "browser": "src/js/index.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -12,8 +13,8 @@
   },
   "author": "Vanja Maric <maricvanj@gmail.com>",
   "license": "MIT",
-  "dependencies": {
-    "vite": "^4.4.9",
-    "@lnu/eslint-config": "^1.1.7"
+  "devDependencies": {
+    "@lnu/eslint-config": "^1.1.7",
+    "vite": "^4.4.9"
   }
 }
