@@ -91,9 +91,18 @@ customElements.define('my-age-guesser-message',
      * makes message to user with predicted age.
      */
     async #makeMessage () {
-      const response = await fetch(`https://api.agify.io?name=${this.#name}`)
-      const data = await response.json()
-      this.#message.innerText = `Your age is ${data.age}`
+      try {
+        const response = await fetch(`https://api.agify.io?name=${this.#name}`)
+        if (!response.ok) {
+          // Handle non-successful HTTP responses (e.g., status code other than 200)
+          throw new Error('Failed to fetch data')
+        }
+        const data = await response.json()
+        this.#message.innerText = `Hello ${this.#name}! I think that your age is ${data.age}!`
+      } catch (error) {
+        this.#message.innerText = 'Sorry, we couldn\'t retrieve the age data at the moment. Please try again later.'
+      }
     }
   }
 )
+// Add try and catch

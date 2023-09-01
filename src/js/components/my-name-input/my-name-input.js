@@ -76,7 +76,6 @@ customElements.define('my-name-input',
     #onSubmit (event) {
       // Do not submit the form!
       event.preventDefault()
-
       this.dispatchEvent(new window.CustomEvent('submited', {
         detail: this.#nameInput.value,
         bubbles: true

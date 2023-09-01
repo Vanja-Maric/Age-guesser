@@ -13,7 +13,7 @@ template.innerHTML = `
   <style>
   </style>
   <div id="container">
-  <my-age-guesser-message id="message" name="Konj"></my-age-guesser-message>
+  <p id="infoMessage">Enter your name and see how old do I think that you are!</p>
   <my-name-input id="nameInput"></my-name-input>
   </div>
 `
@@ -32,6 +32,31 @@ customElements.define('my-age-guesser-app',
     #container
 
     /**
+     * Message to user.
+     */
+    #messageContainer
+
+    /**
+     * Name input form.
+     */
+    #nameInput
+
+    /**
+     * The p element.
+     * Gives info message to the user.
+     *
+     * @type {HTMLElement}
+     */
+    #infoMessage
+
+    /**
+     * Restart button.
+     *
+     * @type {HTMLButtonElement}
+     */
+    #restartButton
+
+    /**
      * Creates an instance of the current type.
      */
     constructor () {
@@ -43,6 +68,40 @@ customElements.define('my-age-guesser-app',
         .appendChild(template.content.cloneNode(true))
 
       this.#container = this.shadowRoot.querySelector('#container')
+      this.#messageContainer = this.shadowRoot.querySelector('#messageContainer')
+      this.#nameInput = this.shadowRoot.querySelector('#nameInput')
+      this.#infoMessage = this.shadowRoot.getElementById('infoMessage')
+      this.#container.addEventListener('submited', (event) => this.#showPredictionMessage(event.detail))
+    }
+
+    /**
+     * Shows Hello mesage and age prediction.
+     *
+     * @param {string} name - Name etered by the user.
+     */
+    #showPredictionMessage (name) {
+      this.#container.removeChild(this.#nameInput)
+      this.#container.removeChild(this.#infoMessage)
+      this.#messageContainer = document.createElement('my-age-guesser-message')
+      this.#messageContainer.setAttribute('name', name)
+      this.#container.appendChild(this.#messageContainer)
+      this.#restartButton = document.createElement('button')
+      this.#restartButton.setAttribute('type', 'button')
+      this.#restartButton.innerText = 'Try again'
+      this.#container.appendChild(this.#restartButton)
+      this.#restartButton.addEventListener('click', () => this.#restartApp())
+    }
+
+    /**
+     * Restarts app.
+     */
+    #restartApp () {
+      console.log('REstarting')
+      this.#container.removeChild(this.#restartButton
+      )
+      this.#container.removeChild(this.#messageContainer)
+      this.#container.appendChild(this.#nameInput)
+      this.#container.appendChild(this.#infoMessage)
     }
   }
 )
