@@ -9,7 +9,14 @@
 const template = document.createElement('template')
 template.innerHTML = `
 <style> 
+#container {
+  height: fit-content;
+}
 
+p {
+  margin-bottom: 30px;
+  margin-top: 0px;
+}
 </style>
 <div id="container">
 <p id=message></p>

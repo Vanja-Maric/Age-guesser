@@ -9,6 +9,33 @@
 const template = document.createElement('template')
 template.innerHTML = `
 <style> 
+form {
+  text-align: center;
+}
+
+#nameInput {
+  vertical-align: middle;
+  padding: 6px;
+  font-family: 'Caveat', cursive;
+  font-size: 20px;
+  border: 1px solid #ccc;
+}
+
+/* Button style */
+#set {
+  vertical-align: middle;
+  background-color: #007bff;
+  color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  margin-left: 10px;;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+#set:hover {
+  background-color: #0056b3;
+}
 </style>
 <form>
 <input type="text" id="nameInput" placeholder="Name"/> 

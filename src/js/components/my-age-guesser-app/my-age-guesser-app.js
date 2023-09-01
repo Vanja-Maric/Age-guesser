@@ -2,7 +2,7 @@
  * The my-age-guesser-app web component module.
  *
  * @author Vanja Maric <vm222hx@student.lnu.se>
- * @version 1..0
+ * @version 1.0.0
  */
 import '../my-name-input'
 import '../my-age-guesser-message'
@@ -11,6 +11,42 @@ import '../my-age-guesser-message'
 const template = document.createElement('template')
 template.innerHTML = `
   <style>
+  #container {
+    max-width: 800px;
+    margin: 10% auto;
+    padding: 40px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: 'Caveat', cursive;
+    font-size: 22px;
+  }
+  
+  #infoMessage {
+    margin-bottom: 30px;
+    margin-top: 0px;
+  }
+
+  #invalidMessage {
+    margin-bottom: 0;
+    margin-top: 30px;
+    color: red;
+  }
+  
+  button {
+    vertical-align: middle;
+    background-color: #007bff;
+    color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
   </style>
   <div id="container">
   <p id="infoMessage">Enter your name and see how old do I think that you are!</p>
@@ -90,6 +126,7 @@ customElements.define('my-age-guesser-app',
       // If name is invalid
       if (name === -1) {
         this.#invalidNameMessage = document.createElement('p')
+        this.#invalidNameMessage.setAttribute('id', 'invalidMessage')
         this.#invalidNameMessage.innerText = 'Please enter a valid name.'
         this.#container.appendChild(this.#invalidNameMessage)
       } else {
@@ -99,7 +136,7 @@ customElements.define('my-age-guesser-app',
         }
         this.#container.removeChild(this.#nameInput)
         this.#container.removeChild(this.#infoMessage)
-        // Creare prediction message and restart button.
+        // Create prediction message and restart button.
         this.#messageContainer = document.createElement('my-age-guesser-message')
         this.#messageContainer.setAttribute('name', name)
         this.#container.appendChild(this.#messageContainer)
@@ -118,8 +155,8 @@ customElements.define('my-age-guesser-app',
       this.#container.removeChild(this.#restartButton
       )
       this.#container.removeChild(this.#messageContainer)
-      this.#container.appendChild(this.#nameInput)
       this.#container.appendChild(this.#infoMessage)
+      this.#container.appendChild(this.#nameInput)
     }
   }
 )
