@@ -57,6 +57,13 @@ customElements.define('my-age-guesser-app',
     #restartButton
 
     /**
+     * Html p element.
+     *
+     * @type {HTMLElement}
+     */
+    #invalidNameMessage
+
+    /**
      * Creates an instance of the current type.
      */
     constructor () {
@@ -80,23 +87,34 @@ customElements.define('my-age-guesser-app',
      * @param {string} name - Name etered by the user.
      */
     #showPredictionMessage (name) {
-      this.#container.removeChild(this.#nameInput)
-      this.#container.removeChild(this.#infoMessage)
-      this.#messageContainer = document.createElement('my-age-guesser-message')
-      this.#messageContainer.setAttribute('name', name)
-      this.#container.appendChild(this.#messageContainer)
-      this.#restartButton = document.createElement('button')
-      this.#restartButton.setAttribute('type', 'button')
-      this.#restartButton.innerText = 'Try again'
-      this.#container.appendChild(this.#restartButton)
-      this.#restartButton.addEventListener('click', () => this.#restartApp())
+      // If name is invalid
+      if (name === -1) {
+        this.#invalidNameMessage = document.createElement('p')
+        this.#invalidNameMessage.innerText = 'Please enter a valid name.'
+        this.#container.appendChild(this.#invalidNameMessage)
+      } else {
+        // Remove input, button and messages.
+        if (this.#invalidNameMessage) {
+          this.#container.removeChild(this.#invalidNameMessage)
+        }
+        this.#container.removeChild(this.#nameInput)
+        this.#container.removeChild(this.#infoMessage)
+        // Creare prediction message and restart button.
+        this.#messageContainer = document.createElement('my-age-guesser-message')
+        this.#messageContainer.setAttribute('name', name)
+        this.#container.appendChild(this.#messageContainer)
+        this.#restartButton = document.createElement('button')
+        this.#restartButton.setAttribute('type', 'button')
+        this.#restartButton.innerText = 'Try again'
+        this.#container.appendChild(this.#restartButton)
+        this.#restartButton.addEventListener('click', () => this.#restartApp())
+      }
     }
 
     /**
      * Restarts app.
      */
     #restartApp () {
-      console.log('REstarting')
       this.#container.removeChild(this.#restartButton
       )
       this.#container.removeChild(this.#messageContainer)

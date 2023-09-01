@@ -69,6 +69,21 @@ customElements.define('my-name-input',
     }
 
     /**
+     * Sanitizes the input value by removing HTML tags and trimming whitespace.
+     * If the input value is empty, it is replaced with -1.
+     *
+     * @returns {string} Sanitazed input.
+     */
+    #sanitazeInput () {
+      let sanitazedInput = this.#nameInput.value.replace(/<[^>]*>/g, '')
+      sanitazedInput = sanitazedInput.trim()
+      if (sanitazedInput === '') {
+        sanitazedInput = -1
+      }
+      return sanitazedInput
+    }
+
+    /**
      * Handles submit event - dispatches event with nameInput value as a detail.
      *
      * @param {SubmitEvent} event - The submit event.
@@ -76,8 +91,9 @@ customElements.define('my-name-input',
     #onSubmit (event) {
       // Do not submit the form!
       event.preventDefault()
+      const input = this.#sanitazeInput()
       this.dispatchEvent(new window.CustomEvent('submited', {
-        detail: this.#nameInput.value,
+        detail: input,
         bubbles: true
       }))
     }

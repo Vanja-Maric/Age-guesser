@@ -105,4 +105,3 @@ customElements.define('my-age-guesser-message',
     }
   }
 )
-// Add try and catch
